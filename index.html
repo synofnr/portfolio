@@ -92,13 +92,11 @@
 
   /* HERO */
   .hero {
-    min-height: 100vh;
-    padding: 0 5vw;
+    padding: 140px 5vw 80px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 80px;
-    padding-top: 72px;
+    align-items: start;
+    gap: 60px;
   }
   .hero-left {}
   .hero-tag {
@@ -195,23 +193,6 @@
     animation: pulse-green 2s ease infinite;
   }
 
-  /* MARQUEE */
-  .marquee-wrap {
-    overflow: hidden; padding: 20px 0;
-    border-top: 1px solid var(--gray-300);
-    border-bottom: 1px solid var(--gray-300);
-  }
-  .marquee-track {
-    display: flex; gap: 48px;
-    animation: marquee 18s linear infinite;
-    width: max-content;
-  }
-  .marquee-item {
-    font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
-    text-transform: uppercase; color: var(--gray-600);
-    white-space: nowrap; display: flex; align-items: center; gap: 48px;
-  }
-  .marquee-item::after { content: '—'; color: var(--red); }
 
   /* SECTIONS */
   section { padding: 120px 5vw; }
@@ -386,7 +367,8 @@
     to { opacity: 1; transform: translateX(0); }
   }
   @keyframes marquee {
-    to { transform: translateX(-50%); }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
   @keyframes pulse-green {
     0%, 100% { opacity: 1; }
@@ -401,6 +383,49 @@
   .reveal-delay-1 { transition-delay: 0.1s; }
   .reveal-delay-2 { transition-delay: 0.2s; }
   .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* SCRAMBLE */
+  .scramble-char { display: inline-block; }
+
+  /* MAGNETIC BTN */
+  .btn-primary, .btn-secondary, .nav-cta { transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s ease; }
+
+  /* SPOTLIGHT */
+  .stat-card.accent {
+    position: relative; overflow: hidden;
+  }
+  .spotlight {
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,33,42,0.25) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+    opacity: 0;
+  }
+  .stat-card.accent:hover .spotlight { opacity: 1; }
+
+  /* GRADIENT BORDER on accent card */
+  .stat-card.accent::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(135deg, rgba(232,33,42,0.6), transparent, rgba(232,33,42,0.3));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* COUNTER ANIM */
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
   /* MOBILE */
   @media (max-width: 900px) {
@@ -437,8 +462,7 @@
   <div class="hero-left">
     <div class="hero-tag">Wien, Österreich — Verfügbar für Projekte</div>
     <h1 class="hero-name">
-      Justin<br>
-      <span class="line2">Sabol</span>
+      <span id="scramble-text">Justin Sabol</span>
     </h1>
     <p class="hero-sub">
       <strong>Websites die verkaufen.</strong> Prozesse die automatisch laufen.<br>
@@ -450,45 +474,27 @@
     </div>
   </div>
   <div class="hero-right">
-    <div class="stat-card accent">
+    <div class="stat-card accent" id="spotlight-card">
+      <div class="spotlight" id="spotlight"></div>
       <div class="available-dot">Verfügbar</div>
       <div class="stat-number" style="font-size:32px;line-height:1.2">Web &<br>Automation</div>
       <div class="stat-label">Maßgeschneiderte Lösungen für Betriebe in Wien</div>
     </div>
     <div class="stat-row">
       <div class="stat-card-sm">
-        <div class="stat-number" style="color:var(--red)">HTL</div>
-        <div class="stat-label" style="font-size:12px;color:var(--gray-600);margin-top:4px">Spengergasse<br>Medientechnik</div>
+        <div class="stat-number" style="color:var(--red);font-size:13px;letter-spacing:0.05em;font-weight:700;text-transform:uppercase">Abschluss</div>
+        <div style="font-size:15px;font-weight:700;margin:6px 0 4px">HTL Spengergasse</div>
+        <div class="stat-label" style="font-size:12px;color:var(--gray-600)">Medientechnik · mit ausgezeichnetem Erfolg</div>
       </div>
       <div class="stat-card-sm">
-        <div class="stat-number">Auto</div>
-        <div class="stat-label" style="font-size:12px;color:var(--gray-600);margin-top:4px">Automationen<br>bei tradat GmbH</div>
+        <div class="stat-number" style="font-size:28px">1+ Jahr</div>
+        <div class="stat-label" style="font-size:12px;color:var(--gray-600);margin-top:4px">Automatisierung<br>bei tradat GmbH</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track" id="marquee-track">
-    <div class="marquee-item">Web Development</div>
-    <div class="marquee-item">Prozessautomatisierung</div>
-    <div class="marquee-item">Landing Pages</div>
-    <div class="marquee-item">PHP &amp; SQL</div>
-    <div class="marquee-item">JavaScript</div>
-    <div class="marquee-item">HTML &amp; CSS</div>
-    <div class="marquee-item">Photoshop</div>
-    <div class="marquee-item">Wien</div>
-    <div class="marquee-item">Web Development</div>
-    <div class="marquee-item">Prozessautomatisierung</div>
-    <div class="marquee-item">Landing Pages</div>
-    <div class="marquee-item">PHP &amp; SQL</div>
-    <div class="marquee-item">JavaScript</div>
-    <div class="marquee-item">HTML &amp; CSS</div>
-    <div class="marquee-item">Photoshop</div>
-    <div class="marquee-item">Wien</div>
-  </div>
-</div>
 
 <!-- SERVICES -->
 <section class="services" id="services">
@@ -538,11 +544,11 @@
     <a href="#" class="project-item reveal reveal-delay-1">
       <div class="project-num">02</div>
       <div class="project-info">
-        <div class="project-title">Gastronomie Automatisierung</div>
+        <div class="project-title">Café Havel — Website Demo</div>
         <div class="project-tags">
-          <span class="tag red">Automatisierung</span>
-          <span class="tag">n8n</span>
-          <span class="tag">Gastro</span>
+          <span class="tag red">Website</span>
+          <span class="tag">Gastronomie</span>
+          <span class="tag">Reservierungssystem</span>
         </div>
       </div>
       <div class="project-arrow">→</div>
@@ -550,11 +556,11 @@
     <a href="#" class="project-item reveal reveal-delay-2">
       <div class="project-num">03</div>
       <div class="project-info">
-        <div class="project-title">Portfolio & CMS — Kleinstbetrieb</div>
+        <div class="project-title">Lead-Qualifizierung — n8n Automation</div>
         <div class="project-tags">
-          <span class="tag red">Website</span>
-          <span class="tag">CMS</span>
-          <span class="tag">Wien</span>
+          <span class="tag red">Automatisierung</span>
+          <span class="tag">n8n</span>
+          <span class="tag">AI</span>
         </div>
       </div>
       <div class="project-arrow">→</div>
@@ -567,9 +573,9 @@
   <div class="about-grid">
     <div class="about-text">
       <div class="section-label reveal">Über mich</div>
-      <h2 class="section-title reveal reveal-delay-1">Ich bin Justin.<br>Wiener Web Dev.</h2>
+      <h2 class="section-title reveal reveal-delay-1">Web Dev &<br>Automatisierer<br>aus Wien.</h2>
       <div class="reveal reveal-delay-2">
-        <p>HTL Spengergasse Abschluss mit <strong>ausgezeichnetem Erfolg</strong>, Schwerpunkt Medientechnik.</p>
+        <p>Fachschulabschluss an der <strong>HTL Spengergasse</strong> mit ausgezeichnetem Erfolg – Schwerpunkt Informationstechnik & Medientechnik.</p>
         <p>Als <strong>Technical Consultant bei der tradat GmbH</strong> arbeite ich täglich an <span class="red">Prozessautomatisierungen</span> und Customer Communication Management – bei Kunden aus den unterschiedlichsten Branchen.</p>
         <p>Mein Ansatz: <strong>Websites und Automatisierungen als Paket</strong> – nicht zwei getrennte Dinge, sondern ein System das für dich arbeitet.</p>
       </div>
@@ -610,21 +616,20 @@
       </div>
     </div>
     <div class="reveal reveal-delay-2">
-      <form class="form" id="contact-form" name="contact" method="POST" data-netlify="true">
-        <input type="hidden" name="form-name" value="contact">
+      <form class="form" id="contact-form">
         <div class="form-row">
           <div class="form-group">
             <label>Name</label>
-            <input type="text" name="name" placeholder="Max Mustermann" required>
+            <input type="text" id="f-name" placeholder="Max Mustermann" required>
           </div>
           <div class="form-group">
             <label>E-Mail</label>
-            <input type="email" name="email" placeholder="max@firma.at" required>
+            <input type="email" id="f-email" placeholder="max@firma.at" required>
           </div>
         </div>
         <div class="form-group">
           <label>Was brauchst du?</label>
-          <select name="service">
+          <select id="f-service">
             <option value="">Bitte wählen…</option>
             <option>Website / Webshop</option>
             <option>Automatisierung</option>
@@ -635,7 +640,7 @@
         </div>
         <div class="form-group">
           <label>Nachricht</label>
-          <textarea name="message" placeholder="Kurze Beschreibung deines Projekts…" required></textarea>
+          <textarea id="f-message" placeholder="Kurze Beschreibung deines Projekts…" required></textarea>
         </div>
         <button type="submit" class="form-submit">Nachricht senden →</button>
         <div id="form-success">✓ Nachricht gesendet – ich melde mich bald!</div>
@@ -651,6 +656,45 @@
 </footer>
 
 <script>
+  // ── TEXT SCRAMBLE ──
+  const scrambleEl = document.getElementById('scramble-text');
+  const scrambleTarget = 'Justin Sabol';
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%';
+  let scrambleFrame = 0;
+  function scramble() {
+    scrambleEl.textContent = scrambleTarget.split('').map((char, i) => {
+      if (char === ' ') return ' ';
+      if (i < scrambleFrame / 2) return char;
+      return chars[Math.floor(Math.random() * chars.length)];
+    }).join('');
+    scrambleFrame++;
+    if (scrambleFrame < scrambleTarget.length * 2) requestAnimationFrame(scramble);
+    else scrambleEl.textContent = scrambleTarget;
+  }
+  setTimeout(scramble, 400);
+
+  // ── SPOTLIGHT ──
+  const spotlightCard = document.getElementById('spotlight-card');
+  const spotlight = document.getElementById('spotlight');
+  spotlightCard.addEventListener('mousemove', e => {
+    const rect = spotlightCard.getBoundingClientRect();
+    spotlight.style.left = (e.clientX - rect.left) + 'px';
+    spotlight.style.top = (e.clientY - rect.top) + 'px';
+    spotlight.style.opacity = '1';
+  });
+  spotlightCard.addEventListener('mouseleave', () => { spotlight.style.opacity = '0'; });
+
+  // ── MAGNETIC BUTTONS ──
+  document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px)`;
+    });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+  });
+
   // Cursor
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursor-ring');
@@ -681,16 +725,23 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Form
+  // Form → n8n
   const form = document.getElementById('contact-form');
   form.addEventListener('submit', async e => {
     e.preventDefault();
     const btn = form.querySelector('.form-submit');
+    const name = document.getElementById('f-name').value;
+    const email = document.getElementById('f-email').value;
+    const service = document.getElementById('f-service').value;
+    const message = document.getElementById('f-message').value;
     btn.textContent = 'Wird gesendet…';
     btn.disabled = true;
     try {
-      const data = new FormData(form);
-      await fetch('/', { method: 'POST', body: data });
+      await fetch('http://n8n.neverlose.at/form/6e8175ce-fec6-4f17-ae19-4ad577826bd8', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ Name: name, Email: email, Nachricht: service + ': ' + message })
+      });
     } catch {}
     form.reset();
     btn.style.display = 'none';
