@@ -6,6 +6,7 @@
 <title>Justin Sabol — Web & Automatisierung</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<script defer src="https://analytics.neverlose.at/script.js" data-website-id="939ef5ed-ea1a-46b0-a56b-3cddf2ad2b02"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -27,26 +28,13 @@
     font-family: var(--font);
     background: var(--white);
     color: var(--black);
-    cursor: none;
     overflow-x: hidden;
   }
 
-  /* CURSOR */
-  #cursor {
-    position: fixed;
-    width: 10px; height: 10px;
-    background: var(--red);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s ease, width 0.25s ease, height 0.25s ease, background 0.25s ease;
-  }
+  /* CURSOR - standard */
   #cursor-ring {
+    display: none;
     position: fixed;
-    width: 36px; height: 36px;
-    border: 1.5px solid var(--red);
-    border-radius: 50%;
     pointer-events: none;
     z-index: 9998;
     transform: translate(-50%, -50%);
@@ -333,7 +321,7 @@
     font-family: var(--font); font-size: 15px; font-weight: 700;
     background: var(--red); color: var(--white);
     border: none; padding: 16px 32px; border-radius: 8px;
-    cursor: none;
+    cursor: pointer;
     transition: background 0.2s, transform 0.2s;
     align-self: flex-start;
   }
