@@ -732,10 +732,10 @@
     btn.textContent = 'Wird gesendet…';
     btn.disabled = true;
     try {
-      await fetch('https://n8n.neverlose.at/form/6e8175ce-fec6-4f17-ae19-4ad577826bd8', {
+      await fetch('https://n8n.neverlose.at/webhook/kontakt', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ Name: name, Email: email, Nachricht: service + ': ' + message })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ Name: name, Email: email, Service: service, Nachricht: message })
       });
     } catch {}
     form.reset();
