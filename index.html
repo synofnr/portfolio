@@ -705,7 +705,7 @@
       await fetch('https://n8n.neverlose.at/webhook/kontakt', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ Name: name, Email: email, Service: service, Nachricht: message })
+        body: JSON.stringify({ Name: name, Email: email, Service: service, Nachricht: message, Quelle: 'Portfolio' })
       });
     } catch {}
     form.reset();
